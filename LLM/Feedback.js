@@ -18,8 +18,10 @@ export default async function GetFeedback(jobPosting) {
     Rules:
     - Focus on reframing existing experience, never invent anything
     - Find ways to naturally integrate keywords and phrases from the job posting into existing experience
-    - Give your tips by starting with a quick break down of why the job is a good fit, bullet point actionable feedback (Change x to y) on their resume, and give an encouraging final word on the fun sounding part of the job
-    - Your output is inserted directly into the tips email for the clients dream job, make sure it looks professional`;
+    - Only offer resume improvement instructions (1. Change X to Y Because Z) after thinking about it for a long time
+    - Never output anything that isn't the title ("Here are your personalized resume tips!") or improvement instructions
+    - Only output the title, followed by an ordered list of improvement instructions
+    `;
 
     return await Prompt(prompt);
 }
