@@ -22,9 +22,14 @@ export default async function GetFeedback(jobPosting) {
     - Focus on reframing existing experience, never invent anything
     - Find ways to naturally integrate keywords and phrases from the job posting into existing experience
     - Only output step by step instructions on what exactly to change and why in an ordered list
-    - Never use any formatting besides numbers denoting the order of the ordered list
+    - Do not use bold, asterisks, dashes, headers, sub-bullets, or any markdown syntax of any kind. Each numbered step must be written as plain prose only.
+    - Every suggestion must reference content already present in Ciara's resume. Do not suggest adding any skill, tool, software, certification, duty, or phrasing that does not already appear in her resume. If a job posting requires something absent from her resume, skip it entirely — do not suggest she fabricate it
     - Never focus on anything that isn't Ciara's resume or the job posting
-    - Save larger changes (Adding/removing whole sections, changing how her previous experience is laid out, etc) for the end of your message
+    - If a suggestion involves a larger structural change such as adding or removing a section, place that step last in the numbered list.
+
+    Example:
+    GOOD : '3. Change skill "Kitchen Prep" to "Deep Cleaning" to align more closely with the job posting'
+    BAD  : '1. **Job Title and Company Name:** Change "Spiritleaf" to "Value Buds" in the job title when referring to your experience as a Key Holder. This helps align with the company name mentioned in the job posting.'
     `;
 
     return await Prompt(prompt);

@@ -12,28 +12,31 @@ export default async function GetEmailBody() {
     // The URLs we're gonna scrape
     const urls = await GetRedirectURLs();
     // We create a dictionary to populate URL : FEEDBACK
+    console.log(`Starting job hunt ${urls.length}`)
     const jobs = {};
-    console.log(`Starting the big process (${urls.length})`)
     for (let i = 0; i < urls.length; ++i) {
-        // Get all the text from the page
         await page.goto(urls[i]);
-        let job = await page.innerText("body");
-        // Use an LLM to compare the current job to the resume, if it's a bad fit skip it
-        console.log("Checking job out")
-        let goodFit = await Filter(job);
-        if (!goodFit) {
-            console.log("Skipped a job");
-            continue;
-        }
-        // If we made it this far we should give feedback on this job and add it to our jobs object so we can turn it into an email later
-        console.log(`Creating Feedback for ${urls[i]}`)
-        let feedback = await GetFeedback(job);
-        console.log("Finished Feedback")
-        jobs[urls[i]] = feedback;
+        jobs[urls[i]] = await page.innerText('body');
     }
     // Close the browser to free the memory
     await browser.close();
-    console.log("Finished the big process");
+    console.log(`Scrapped ${urls.length} job posting`)
+    for (let i = 0; i < urls.length; ++i) {
+        let goodFit = await Filter(jobs[urls[i]]);
+        if (!goodFit)
+            jobs[urls[i]] = null;
+        console.log(`${goodFit ? "Good" : "Bad"} job posting: ${urls[i]}`)
+    }
+    for (let i = 0; i < urls.length; ++i) {
+        let jobPosting = jobs[urls[i]];
+        if (jobPosting == null)
+            continue;
+
+        console.log(`Starting feedback for ${urls[i]}`)
+        jobs[urls[i]] = await GetFeedback(jobPosting);
+        console.log("Finished feedback");
+    }
+
     // Returns the url : feedback
     return jobs;
 }
