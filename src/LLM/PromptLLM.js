@@ -2,7 +2,7 @@
 
 export default async function Prompt(prompt) {
     // Connects to a free open source llm
-    const url = process.env.OLLAMA_URL;
+    const url = process.env.OLLAMA_ENDPOINT;
     try {
         // Send prompt
         const response = await fetch(url, {

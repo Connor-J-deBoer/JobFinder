@@ -4,12 +4,12 @@ import GetResumeAsText from "../Resume/ResumeReader.js";
 import Prompt from "./PromptLLM.js";
 
 // We create a prompt that's suitable for the email
-export default async function GetFeedback(jobPosting) {
+export default async function GetFeedback(job) {
     const resume = await GetResumeAsText();
     const prompt = `You have 1 goal, get Ciara Delaney this job
 
     Here is the job Posting (Body.InnerText):
-    ${jobPosting}
+    ${job.desc}
 
     Here is Ciara's resume
     ${resume}

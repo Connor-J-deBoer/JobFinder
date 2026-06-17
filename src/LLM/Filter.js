@@ -9,7 +9,7 @@ export default async function Filter(Job) {
     const prompt = `Your 1 and only goal is to filter job postings based off a base resume
     
     Here is the job:
-    ${Job}
+    ${Job.desc}
     
     Here is the resume:
     ${resume}
