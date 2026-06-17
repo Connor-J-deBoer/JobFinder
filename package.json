@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "setup": "node src/Setup.js",
+    "test": "node --env-file=.env src/Index.js"
+  },
   "dependencies": {
     "better-sqlite3": "^12.11.1",
     "playwright": "^1.60.0",
